@@ -1,6 +1,6 @@
 # DTC Parser
 
-Parser for diagnostic trouble codes (DTCs) used by vehicle onboard diagnosis (OBD). Resolves all digits of the code and outputs the resulting error information (e.g. vehicle part and descriptions).
+Parser for [diagnostic trouble codes](https://en.wikipedia.org/wiki/OBD-II_PIDs) (DTCs) used by vehicle [on-board diagnostics](https://en.wikipedia.org/wiki/On-board_diagnostics) (OBD). Resolves all digits of the code and outputs the resulting error information (e.g. vehicle part and descriptions).
 
 ## Usage
 
