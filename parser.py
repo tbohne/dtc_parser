@@ -155,13 +155,15 @@ def parse_code(code):
 
     :param code: DTC to be parsed
     """
-    print("parsing", code)
+    print("... parsing", code, "...")
     assert len(code) == 5
 
-    parse_vehicle_part(code[0])
-    parse_code_type(code[1])
-    parse_vehicle_subsystem(code[2])
-    print(parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]))
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    print("VEHICLE PART:\t\t", parse_vehicle_part(code[0]))
+    print("CODE TYPE:\t\t", parse_code_type(code[1]))
+    print("VEHICLE SUBSYSTEM:\t", parse_vehicle_subsystem(code[2]))
+    print("FAULT DESCRIPTION:\t", parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
 
 if __name__ == '__main__':
