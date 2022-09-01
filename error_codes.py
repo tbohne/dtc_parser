@@ -683,7 +683,7 @@ P03_ERRORS = {
     "P0394": "Camshaft Position Sensor 'B' Circuit Intermittent",
 }
 
-    P04_ERRORS = {
+P04_ERRORS = {
     "p0400": "Exhaust Gas Recirculation 'A' Flow",
     "p0401": "Exhaust Gas Recirculation 'A' Flow Insufficient Detected",
     "p0402": "Exhaust Gas Recirculation 'A' Flow Excessive Detected",
