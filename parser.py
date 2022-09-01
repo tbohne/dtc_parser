@@ -147,6 +147,9 @@ def parse_fault_description(prefix, error_code):
     elif prefix == "U1":
         print("manufacturer-specific network fault descriptions not yet supported..")
         return "----"
+    else:
+        print("unknown category (first two chars of code)")
+        return "---"
 
 
 def parse_code(code):
