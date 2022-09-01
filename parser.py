@@ -4,6 +4,8 @@
 
 import argparse
 
+import error_codes
+
 
 def parse_vehicle_part(char):
     """
@@ -73,10 +75,78 @@ def parse_vehicle_subsystem(char):
         return "---"
 
 
-def parse_fault_description(code):
-    assert len(code) == 2
-    error_code = int(code)
-    print("err:", error_code)
+def parse_generic_powertrain_fault(prefix, code):
+    """
+    Parses the generic powertrain fault.
+
+    :param prefix: first two characters (category)
+    :param code: last three chars (specific fault)
+    :return: generic powertrain fault
+    """
+    if code[0] == "0":
+        return error_codes.P00_ERRORS[prefix + code]
+    elif code[0] == "1":
+        return error_codes.P01_ERRORS[prefix + code]
+    elif code[0] == "2":
+        return error_codes.P02_ERRORS[prefix + code]
+    elif code[0] == "3":
+        return error_codes.P03_ERRORS[prefix + code]
+    elif code[0] == "4":
+        return error_codes.P04_ERRORS[prefix + code]
+    elif code[0] == "5":
+        return error_codes.P05_ERRORS[prefix + code]
+    elif code[0] == "6":
+        return error_codes.P06_ERRORS[prefix + code]
+    elif code[0] == "7":
+        return error_codes.P07_ERRORS[prefix + code]
+    elif code[0] == "8":
+        return error_codes.P08_ERRORS[prefix + code]
+    elif code[0] == "9":
+        return error_codes.P09_ERRORS[prefix + code]
+    elif code[0] == "A":
+        return error_codes.P0A_ERRORS[prefix + code]
+    elif code[0] == "B":
+        return error_codes.P0B_ERRORS[prefix + code]
+    elif code[0] == "C":
+        return error_codes.P0C_ERRORS[prefix + code]
+    else:
+        print("invalid generic powertrain code")
+        return "---"
+
+
+def parse_fault_description(prefix, error_code):
+    """
+    Parses the specific fault description (last three chars) based on the category (first two chars).
+
+    :param prefix: first two characters (category)
+    :param error_code: last three chars (specific fault)
+    :return: parsed fault description
+    """
+    assert len(prefix) == 2 and len(error_code) == 3
+
+    if prefix == "P0":
+        return parse_generic_powertrain_fault(prefix, error_code)
+    elif prefix == "P1":
+        print("manufacturer-specific powertrain fault descriptions not yet supported..")
+        return "---"
+    elif prefix == "C0":
+        print("generic chassis fault descriptions not yet supported..")
+        return "----"
+    elif prefix == "C1":
+        print("manufacturer-specific chassis fault descriptions not yet supported..")
+        return "----"
+    elif prefix == "B0":
+        print("generic body fault descriptions not yet supported..")
+        return "----"
+    elif prefix == "B1":
+        print("manufacturer-specific body fault descriptions not yet supported..")
+        return "----"
+    elif prefix == "U0":
+        print("generic network fault descriptions not yet supported..")
+        return "----"
+    elif prefix == "U1":
+        print("manufacturer-specific network fault descriptions not yet supported..")
+        return "----"
 
 
 def parse_code(code):
@@ -91,7 +161,7 @@ def parse_code(code):
     parse_vehicle_part(code[0])
     parse_code_type(code[1])
     parse_vehicle_subsystem(code[2])
-    parse_fault_description(code[3] + code[4])
+    print(parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]))
 
 
 if __name__ == '__main__':
