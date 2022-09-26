@@ -175,8 +175,22 @@ class DTCParser:
         print("VEHICLE PART:\t\t", self.parse_vehicle_part(code[0]))
         print("CODE TYPE:\t\t", self.parse_code_type(code[1]))
         print("VEHICLE SUBSYSTEM:\t", self.parse_vehicle_subsystem(code[2]))
-        print("FAULT DESCRIPTION:\t", self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
+        print("FAULT DESCRIPTION:\t",
+              self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+    def parse_code_machine_readable(self, code):
+        """
+        Parses the provided DTC and returns the results in a machine-readable format.
+
+        :param code: DTC to be parsed
+        :return: parsed DTC results in machine-readable format
+        """
+        print("... parsing", code, "...")
+        assert len(code) == 5
+        return "{" + self.parse_vehicle_part(code[0]) + ", " + self.parse_code_type(code[1]) + ", " \
+               + self.parse_vehicle_subsystem(code[2]) + ", " \
+               + self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower() + "}"
 
 
 if __name__ == '__main__':
