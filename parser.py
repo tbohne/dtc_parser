@@ -4,7 +4,7 @@
 
 import argparse
 
-import error_codes
+from dtc_parser import error_codes
 
 
 class DTCParser:
