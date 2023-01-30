@@ -144,6 +144,34 @@ class DTCParser:
             print("invalid manufacturer-specific powertrain code")
             return "---"
 
+    @staticmethod
+    def parse_generic_body_fault(prefix, code):
+        """
+        Parses the generic body fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: generic body fault
+        """
+        return error_codes.B0_ERRORS[prefix + code]
+
+    @staticmethod
+    def parse_manufacturer_specific_body_fault(prefix, code):
+        """
+        Parses the manufacturer-specific body fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: manufacturer-specific body fault
+        """
+        if prefix[1] == "1":
+            return error_codes.B1_ERRORS[prefix + code]
+        elif prefix[1] == "2":
+            return error_codes.B2_ERRORS[prefix + code]
+        else:
+            print("invalid manufacturer-specific powertrain code")
+            return "---"
+
     def parse_fault_description(self, prefix, error_code):
         """
         Parses the specific fault description (last three chars) based on the category (first two chars).
@@ -165,11 +193,9 @@ class DTCParser:
             print("manufacturer-specific chassis fault descriptions not yet supported..")
             return "----"
         elif prefix == "B0":
-            print("generic body fault descriptions not yet supported..")
-            return "----"
-        elif prefix == "B1":
-            print("manufacturer-specific body fault descriptions not yet supported..")
-            return "----"
+            return self.parse_generic_body_fault(prefix, error_code)
+        elif prefix in ["B1", "B2"]:
+            return self.parse_manufacturer_specific_body_fault(prefix, error_code)
         elif prefix == "U0":
             print("generic network fault descriptions not yet supported..")
             return "----"
