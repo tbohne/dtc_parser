@@ -50,7 +50,7 @@ class DTCParser:
         """
         if char == "0":
             return "standardized (SAE) code, aka generic code"
-        elif char == "1":
+        elif char in ["1", "2", "3"]:
             return "manufacturer-specific code"
         else:
             print("unknown second char")
@@ -125,6 +125,25 @@ class DTCParser:
             print("invalid generic powertrain code")
             return "---"
 
+    @staticmethod
+    def parse_manufacturer_specific_powertrain_fault(prefix, code):
+        """
+        Parses the manufacturer-specific powertrain fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: manufacturer-specific powertrain fault
+        """
+        if prefix[1] == "1":
+            return error_codes.P1_ERRORS[prefix + code]
+        elif prefix[1] == "2":
+            return error_codes.P2_ERRORS[prefix + code]
+        elif prefix[1] == "3":
+            return error_codes.P3_ERRORS[prefix + code]
+        else:
+            print("invalid manufacturer-specific powertrain code")
+            return "---"
+
     def parse_fault_description(self, prefix, error_code):
         """
         Parses the specific fault description (last three chars) based on the category (first two chars).
@@ -137,9 +156,8 @@ class DTCParser:
 
         if prefix == "P0":
             return self.parse_generic_powertrain_fault(prefix, error_code)
-        elif prefix == "P1":
-            print("manufacturer-specific powertrain fault descriptions not yet supported..")
-            return "---"
+        elif prefix in ["P1", "P2", "P3"]:
+            return self.parse_manufacturer_specific_powertrain_fault(prefix, error_code)
         elif prefix == "C0":
             print("generic chassis fault descriptions not yet supported..")
             return "----"
