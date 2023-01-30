@@ -145,6 +145,34 @@ class DTCParser:
             return "---"
 
     @staticmethod
+    def parse_generic_chassis_fault(prefix, code):
+        """
+        Parses the generic chassis fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: generic chassis fault
+        """
+        return error_codes.C0_ERRORS[prefix + code]
+
+    @staticmethod
+    def parse_manufacturer_specific_chassis_fault(prefix, code):
+        """
+        Parses the manufacturer-specific chassis fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: manufacturer-specific chassis fault
+        """
+        if prefix[1] == "1":
+            return error_codes.C1_ERRORS[prefix + code]
+        elif prefix[1] == "2":
+            return error_codes.C2_ERRORS[prefix + code]
+        else:
+            print("invalid manufacturer-specific chassis code")
+            return "---"
+
+    @staticmethod
     def parse_generic_body_fault(prefix, code):
         """
         Parses the generic body fault.
@@ -169,7 +197,7 @@ class DTCParser:
         elif prefix[1] == "2":
             return error_codes.B2_ERRORS[prefix + code]
         else:
-            print("invalid manufacturer-specific powertrain code")
+            print("invalid manufacturer-specific body code")
             return "---"
 
     def parse_fault_description(self, prefix, error_code):
@@ -187,11 +215,9 @@ class DTCParser:
         elif prefix in ["P1", "P2", "P3"]:
             return self.parse_manufacturer_specific_powertrain_fault(prefix, error_code)
         elif prefix == "C0":
-            print("generic chassis fault descriptions not yet supported..")
-            return "----"
-        elif prefix == "C1":
-            print("manufacturer-specific chassis fault descriptions not yet supported..")
-            return "----"
+            return self.parse_generic_chassis_fault(prefix, error_code)
+        elif prefix in ["C1", "C2"]:
+            return self.parse_manufacturer_specific_chassis_fault(prefix, error_code)
         elif prefix == "B0":
             return self.parse_generic_body_fault(prefix, error_code)
         elif prefix in ["B1", "B2"]:
