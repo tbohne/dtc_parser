@@ -1,6 +1,6 @@
 # DTC Parser
 
-Parser for [diagnostic trouble codes](https://en.wikipedia.org/wiki/OBD-II_PIDs) (DTCs) used by vehicle [on-board diagnostics](https://en.wikipedia.org/wiki/On-board_diagnostics) (OBD). Resolves all digits of the code and outputs the resulting error information (e.g. vehicle part and descriptions). The parser currently supports 5090 DTCs from all categories, i.e., powertrain, body, chassis and user network, both generic and manufacturer-specific ones. If you miss DTCs, please don't hesitate to file an issue or directly add them in a PR.
+Parser for [diagnostic trouble codes](https://en.wikipedia.org/wiki/OBD-II_PIDs) (DTCs) used by vehicle [on-board diagnostics](https://en.wikipedia.org/wiki/On-board_diagnostics) (OBD). Resolves all digits of the code and outputs the resulting error information (e.g. vehicle part and descriptions). The parser currently supports *5090* DTCs from all categories, i.e., powertrain, body, chassis and user network, both generic and manufacturer-specific ones. If you miss DTCs, please don't hesitate to file an issue or directly add them in a PR.
 
 ## Installation
 ```
