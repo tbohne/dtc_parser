@@ -41,9 +41,9 @@ class DTCParser:
     @staticmethod
     def parse_code_type(char):
         """
-        The second char is a number (0 or 1) that determines the type of the code.
-            0 -> generic
-            1 -> manufacturer-specific
+        The second char is a number that determines the type of the code.
+            0  -> generic
+            >0 -> manufacturer-specific
 
         :param char: second char of the DTC
         :return: parsed code type
@@ -285,14 +285,13 @@ class DTCParser:
         print("... parsing", code, "...")
         assert len(code) == 5
         return "{" + self.parse_vehicle_part(code[0]) + ", " + self.parse_code_type(code[1]) + ", " \
-               + self.parse_vehicle_subsystem(code[2]) + ", " \
-               + self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower() + "}"
+            + self.parse_vehicle_subsystem(code[2]) + ", " \
+            + self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower() + "}"
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parser for diagnostic trouble codes (DTCs)')
     parser.add_argument('--code', action='store', type=str, help='DTC to be parsed', required=True)
     args = parser.parse_args()
-
     dtc_parser = DTCParser()
     dtc_parser.parse_code(args.code)
