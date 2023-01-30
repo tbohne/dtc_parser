@@ -200,6 +200,34 @@ class DTCParser:
             print("invalid manufacturer-specific body code")
             return "---"
 
+    @staticmethod
+    def parse_generic_network_fault(prefix, code):
+        """
+        Parses the generic network fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: generic network fault
+        """
+        return error_codes.U0_ERRORS[prefix + code]
+
+    @staticmethod
+    def parse_manufacturer_specific_network_fault(prefix, code):
+        """
+        Parses the manufacturer-specific network fault.
+
+        :param prefix: first two characters (category)
+        :param code: last three chars (specific fault)
+        :return: manufacturer-specific network fault
+        """
+        if prefix[1] == "1":
+            return error_codes.U1_ERRORS[prefix + code]
+        elif prefix[1] == "2":
+            return error_codes.U2_ERRORS[prefix + code]
+        else:
+            print("invalid manufacturer-specific network code")
+            return "---"
+
     def parse_fault_description(self, prefix, error_code):
         """
         Parses the specific fault description (last three chars) based on the category (first two chars).
@@ -223,11 +251,9 @@ class DTCParser:
         elif prefix in ["B1", "B2"]:
             return self.parse_manufacturer_specific_body_fault(prefix, error_code)
         elif prefix == "U0":
-            print("generic network fault descriptions not yet supported..")
-            return "----"
-        elif prefix == "U1":
-            print("manufacturer-specific network fault descriptions not yet supported..")
-            return "----"
+            return self.parse_generic_network_fault(prefix, error_code)
+        elif prefix in ["U1", "U2"]:
+            return self.parse_manufacturer_specific_network_fault(prefix, error_code)
         else:
             print("unknown category (first two chars of code)")
             return "---"
