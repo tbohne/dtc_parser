@@ -19,7 +19,7 @@ class DTCParser:
         self.fault_description = ""
 
     @staticmethod
-    def parse_vehicle_part(char):
+    def parse_vehicle_part(char: str) -> str:
         """
         OBD-II codes start with a letter that denotes the part of the vehicle that has a fault.
 
@@ -39,7 +39,7 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def parse_code_type(char):
+    def parse_code_type(char: str) -> str:
         """
         The second char is a number that determines the type of the code.
             0  -> generic
@@ -57,7 +57,7 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def parse_vehicle_subsystem(char):
+    def parse_vehicle_subsystem(char: str) -> str:
         """
         The third char tells which vehicle subsystem has a fault.
 
@@ -87,7 +87,7 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def get_code_from_dict(code_dict, code):
+    def get_code_from_dict(code_dict: dict, code: str) -> str:
         """
         Parses the specified DTC using the specified dictionary (if supported).
 
@@ -97,7 +97,7 @@ class DTCParser:
         """
         return code_dict[code] if code in code_dict.keys() else "unsupported DTC"
 
-    def parse_generic_powertrain_fault(self, prefix, code):
+    def parse_generic_powertrain_fault(self, prefix: str, code: str) -> str:
         """
         Parses the generic powertrain fault.
 
@@ -135,7 +135,7 @@ class DTCParser:
             print("invalid generic powertrain code")
             return "---"
 
-    def parse_manufacturer_specific_powertrain_fault(self, prefix, code):
+    def parse_manufacturer_specific_powertrain_fault(self, prefix: str, code: str) -> str:
         """
         Parses the manufacturer-specific powertrain fault.
 
@@ -153,7 +153,7 @@ class DTCParser:
             print("invalid manufacturer-specific powertrain code")
             return "---"
 
-    def parse_generic_chassis_fault(self, prefix, code):
+    def parse_generic_chassis_fault(self, prefix: str, code: str) -> str:
         """
         Parses the generic chassis fault.
 
@@ -163,7 +163,7 @@ class DTCParser:
         """
         return self.get_code_from_dict(error_codes.C0_ERRORS, prefix + code)
 
-    def parse_manufacturer_specific_chassis_fault(self, prefix, code):
+    def parse_manufacturer_specific_chassis_fault(self, prefix: str, code: str) -> str:
         """
         Parses the manufacturer-specific chassis fault.
 
@@ -179,7 +179,7 @@ class DTCParser:
             print("invalid manufacturer-specific chassis code")
             return "---"
 
-    def parse_generic_body_fault(self, prefix, code):
+    def parse_generic_body_fault(self, prefix: str, code: str) -> str:
         """
         Parses the generic body fault.
 
@@ -189,7 +189,7 @@ class DTCParser:
         """
         return self.get_code_from_dict(error_codes.B0_ERRORS, prefix + code)
 
-    def parse_manufacturer_specific_body_fault(self, prefix, code):
+    def parse_manufacturer_specific_body_fault(self, prefix: str, code: str) -> str:
         """
         Parses the manufacturer-specific body fault.
 
@@ -205,7 +205,7 @@ class DTCParser:
             print("invalid manufacturer-specific body code")
             return "---"
 
-    def parse_generic_network_fault(self, prefix, code):
+    def parse_generic_network_fault(self, prefix: str, code: str) -> str:
         """
         Parses the generic network fault.
 
@@ -215,7 +215,7 @@ class DTCParser:
         """
         return self.get_code_from_dict(error_codes.U0_ERRORS, prefix + code)
 
-    def parse_manufacturer_specific_network_fault(self, prefix, code):
+    def parse_manufacturer_specific_network_fault(self, prefix: str, code: str) -> str:
         """
         Parses the manufacturer-specific network fault.
 
@@ -231,7 +231,7 @@ class DTCParser:
             print("invalid manufacturer-specific network code")
             return "---"
 
-    def parse_fault_description(self, prefix, error_code):
+    def parse_fault_description(self, prefix: str, error_code: str) -> str:
         """
         Parses the specific fault description (last three chars) based on the category (first two chars).
 
@@ -261,7 +261,7 @@ class DTCParser:
             print("unknown category (first two chars of code)")
             return "---"
 
-    def parse_code(self, code):
+    def parse_code(self, code: str) -> None:
         """
         Parses the provided DTC.
 
@@ -269,7 +269,6 @@ class DTCParser:
         """
         print("... parsing", code, "...")
         assert len(code) == 5
-
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         print("VEHICLE PART:\t\t", self.parse_vehicle_part(code[0]))
         print("CODE TYPE:\t\t", self.parse_code_type(code[1]))
@@ -278,7 +277,7 @@ class DTCParser:
               self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-    def parse_code_machine_readable(self, code):
+    def parse_code_machine_readable(self, code: str) -> str:
         """
         Parses the provided DTC and returns the results in a machine-readable format.
 
