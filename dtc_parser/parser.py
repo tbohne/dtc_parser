@@ -87,7 +87,17 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def parse_generic_powertrain_fault(prefix, code):
+    def get_code_from_dict(code_dict, code):
+        """
+        Parses the specified DTC using the specified dictionary (if supported).
+
+        :param code_dict: dictionary to parse DTC info from
+        :param code: DTC to be parsed
+        :return: parsed DTC info
+        """
+        return code_dict[code] if code in code_dict.keys() else "unsupported DTC"
+
+    def parse_generic_powertrain_fault(self, prefix, code):
         """
         Parses the generic powertrain fault.
 
@@ -96,37 +106,36 @@ class DTCParser:
         :return: generic powertrain fault
         """
         if code[0] == "0":
-            return error_codes.P00_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P00_ERRORS, prefix + code)
         elif code[0] == "1":
-            return error_codes.P01_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P01_ERRORS, prefix + code)
         elif code[0] == "2":
-            return error_codes.P02_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P02_ERRORS, prefix + code)
         elif code[0] == "3":
-            return error_codes.P03_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P03_ERRORS, prefix + code)
         elif code[0] == "4":
-            return error_codes.P04_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P04_ERRORS, prefix + code)
         elif code[0] == "5":
-            return error_codes.P05_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P05_ERRORS, prefix + code)
         elif code[0] == "6":
-            return error_codes.P06_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P06_ERRORS, prefix + code)
         elif code[0] == "7":
-            return error_codes.P07_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P07_ERRORS, prefix + code)
         elif code[0] == "8":
-            return error_codes.P08_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P08_ERRORS, prefix + code)
         elif code[0] == "9":
-            return error_codes.P09_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P09_ERRORS, prefix + code)
         elif code[0] == "A":
-            return error_codes.P0A_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P0A_ERRORS, prefix + code)
         elif code[0] == "B":
-            return error_codes.P0B_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P0B_ERRORS, prefix + code)
         elif code[0] == "C":
-            return error_codes.P0C_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P0C_ERRORS, prefix + code)
         else:
             print("invalid generic powertrain code")
             return "---"
 
-    @staticmethod
-    def parse_manufacturer_specific_powertrain_fault(prefix, code):
+    def parse_manufacturer_specific_powertrain_fault(self, prefix, code):
         """
         Parses the manufacturer-specific powertrain fault.
 
@@ -135,17 +144,16 @@ class DTCParser:
         :return: manufacturer-specific powertrain fault
         """
         if prefix[1] == "1":
-            return error_codes.P1_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P1_ERRORS, prefix + code)
         elif prefix[1] == "2":
-            return error_codes.P2_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P2_ERRORS, prefix + code)
         elif prefix[1] == "3":
-            return error_codes.P3_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.P3_ERRORS, prefix + code)
         else:
             print("invalid manufacturer-specific powertrain code")
             return "---"
 
-    @staticmethod
-    def parse_generic_chassis_fault(prefix, code):
+    def parse_generic_chassis_fault(self, prefix, code):
         """
         Parses the generic chassis fault.
 
@@ -153,10 +161,9 @@ class DTCParser:
         :param code: last three chars (specific fault)
         :return: generic chassis fault
         """
-        return error_codes.C0_ERRORS[prefix + code]
+        return self.get_code_from_dict(error_codes.C0_ERRORS, prefix + code)
 
-    @staticmethod
-    def parse_manufacturer_specific_chassis_fault(prefix, code):
+    def parse_manufacturer_specific_chassis_fault(self, prefix, code):
         """
         Parses the manufacturer-specific chassis fault.
 
@@ -165,15 +172,14 @@ class DTCParser:
         :return: manufacturer-specific chassis fault
         """
         if prefix[1] == "1":
-            return error_codes.C1_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.C1_ERRORS, prefix + code)
         elif prefix[1] == "2":
-            return error_codes.C2_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.C2_ERRORS, prefix + code)
         else:
             print("invalid manufacturer-specific chassis code")
             return "---"
 
-    @staticmethod
-    def parse_generic_body_fault(prefix, code):
+    def parse_generic_body_fault(self, prefix, code):
         """
         Parses the generic body fault.
 
@@ -181,10 +187,9 @@ class DTCParser:
         :param code: last three chars (specific fault)
         :return: generic body fault
         """
-        return error_codes.B0_ERRORS[prefix + code]
+        return self.get_code_from_dict(error_codes.B0_ERRORS, prefix + code)
 
-    @staticmethod
-    def parse_manufacturer_specific_body_fault(prefix, code):
+    def parse_manufacturer_specific_body_fault(self, prefix, code):
         """
         Parses the manufacturer-specific body fault.
 
@@ -193,15 +198,14 @@ class DTCParser:
         :return: manufacturer-specific body fault
         """
         if prefix[1] == "1":
-            return error_codes.B1_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.B1_ERRORS, prefix + code)
         elif prefix[1] == "2":
-            return error_codes.B2_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.B2_ERRORS, prefix + code)
         else:
             print("invalid manufacturer-specific body code")
             return "---"
 
-    @staticmethod
-    def parse_generic_network_fault(prefix, code):
+    def parse_generic_network_fault(self, prefix, code):
         """
         Parses the generic network fault.
 
@@ -209,10 +213,9 @@ class DTCParser:
         :param code: last three chars (specific fault)
         :return: generic network fault
         """
-        return error_codes.U0_ERRORS[prefix + code]
+        return self.get_code_from_dict(error_codes.U0_ERRORS, prefix + code)
 
-    @staticmethod
-    def parse_manufacturer_specific_network_fault(prefix, code):
+    def parse_manufacturer_specific_network_fault(self, prefix, code):
         """
         Parses the manufacturer-specific network fault.
 
@@ -221,9 +224,9 @@ class DTCParser:
         :return: manufacturer-specific network fault
         """
         if prefix[1] == "1":
-            return error_codes.U1_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.U1_ERRORS, prefix + code)
         elif prefix[1] == "2":
-            return error_codes.U2_ERRORS[prefix + code]
+            return self.get_code_from_dict(error_codes.U2_ERRORS, prefix + code)
         else:
             print("invalid manufacturer-specific network code")
             return "---"
