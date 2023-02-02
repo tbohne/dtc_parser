@@ -277,7 +277,7 @@ class DTCParser:
               self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-    def parse_code_machine_readable(self, code: str) -> str:
+    def parse_code_machine_readable(self, code: str) -> dict:
         """
         Parses the provided DTC and returns the results in a machine-readable format.
 
@@ -286,10 +286,12 @@ class DTCParser:
         """
         print("... parsing", code, "...")
         assert len(code) == 5
-        return "{" + self.parse_vehicle_part(code[0]) + ", " + self.parse_code_type(code[1]) + ", " \
-            + self.parse_vehicle_subsystem(code[2]) + ", " \
-            + self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower() + "}"
-
+        return {
+            "vehicle_part": self.parse_vehicle_part(code[0]),
+            "code_type": self.parse_code_type(code[1]),
+            "vehicle_subsystem": self.parse_vehicle_subsystem(code[2]),
+            "fault_description": self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower()
+        }
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parser for diagnostic trouble codes (DTCs)')
