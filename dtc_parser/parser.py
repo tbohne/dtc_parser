@@ -293,6 +293,7 @@ class DTCParser:
             "fault_description": self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower()
         }
 
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Parser for diagnostic trouble codes (DTCs)')
     parser.add_argument('--code', action='store', type=str, help='DTC to be parsed', required=True)
