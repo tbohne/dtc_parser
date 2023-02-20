@@ -84,7 +84,7 @@ class DTCParser:
             return "hybrid propulsion systems"
         else:
             print("unknown third char")
-            return "---"
+            return "unknown"
 
     @staticmethod
     def get_code_from_dict(code_dict: dict, code: str) -> str:
