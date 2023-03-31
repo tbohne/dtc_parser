@@ -66,6 +66,8 @@ class DTCParser:
         :param third_char: third char of the DTC
         :return: parsed vehicle subsystem
         """
+        # TODO: only supporting powertrain (P) subsystems atm, should be extended when
+        #       a source for the other categories can be found
         if first_char != "P":
             print("we don't have information about subsystems for category", first_char)
             return "unknown"
