@@ -57,30 +57,35 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def parse_vehicle_subsystem(char: str) -> str:
+    def parse_vehicle_subsystem(first_char, third_char: str) -> str:
         """
-        The third char tells which vehicle subsystem has a fault.
+        The third char tells which vehicle subsystem has a fault (based on the category (first char)).
+        This function returns the subsystems for powertrain codes.
 
-        :param char: third char of the DTC
+        :param first_char: first char of the DTC
+        :param third_char: third char of the DTC
         :return: parsed vehicle subsystem
         """
-        if char == "0":
+        if first_char != "P":
+            print("we don't have information about subsystems for category", first_char)
+            return "unknown"
+        elif third_char == "0":
             return "fuel and air metering and auxiliary emission controls"
-        elif char == "1":
+        elif third_char == "1":
             return "fuel and air metering"
-        elif char == "2":
+        elif third_char == "2":
             return "fuel and air metering – injector circuit"
-        elif char == "3":
+        elif third_char == "3":
             return "ignition systems or misfires"
-        elif char == "4":
+        elif third_char == "4":
             return "auxiliary emission controls"
-        elif char == "5":
+        elif third_char == "5":
             return "vehicle speed control, idle control systems, and auxiliary inputs"
-        elif char == "6":
+        elif third_char == "6":
             return "computer and output circuit"
-        elif char == "7":
+        elif third_char == "7":
             return "transmission"
-        elif char in ["A", "B", "C"]:
+        elif third_char in ["A", "B", "C"]:
             return "hybrid propulsion systems"
         else:
             print("unknown third char")
@@ -272,7 +277,7 @@ class DTCParser:
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
         print("VEHICLE PART:\t\t", self.parse_vehicle_part(code[0]))
         print("CODE TYPE:\t\t", self.parse_code_type(code[1]))
-        print("VEHICLE SUBSYSTEM:\t", self.parse_vehicle_subsystem(code[2]))
+        print("VEHICLE SUBSYSTEM:\t", self.parse_vehicle_subsystem(code[0], code[2]))
         print("FAULT DESCRIPTION:\t",
               self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
@@ -289,7 +294,7 @@ class DTCParser:
         return {
             "vehicle_part": self.parse_vehicle_part(code[0]),
             "code_type": self.parse_code_type(code[1]),
-            "vehicle_subsystem": self.parse_vehicle_subsystem(code[2]),
+            "vehicle_subsystem": self.parse_vehicle_subsystem(code[0], code[2]),
             "fault_description": self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower()
         }
 
