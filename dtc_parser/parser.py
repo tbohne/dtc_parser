@@ -70,7 +70,7 @@ class DTCParser:
         #       a source for the other categories can be found
         if first_char != "P":
             print("we don't have information about subsystems for category", first_char)
-            return "unknown"
+            return "unknown_" + first_char
         elif third_char == "0":
             return "fuel and air metering and auxiliary emission controls"
         elif third_char == "1":
@@ -91,7 +91,7 @@ class DTCParser:
             return "hybrid propulsion systems"
         else:
             print("unknown third char")
-            return "unknown"
+            return "unknown_P"
 
     @staticmethod
     def get_code_from_dict(code_dict: dict, code: str) -> str:
