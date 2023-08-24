@@ -9,7 +9,7 @@ from dtc_parser import error_codes
 
 class DTCParser:
     """
-    Parser for diagnostic trouble codes (DTCs) used by vehicle onboard diagnosis (OBD).
+    Parser for diagnostic trouble codes (DTCs) used by vehicle on-board diagnostics (OBD).
     """
 
     def __init__(self):
@@ -108,7 +108,7 @@ class DTCParser:
         """
         Parses the generic powertrain fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: generic powertrain fault
         """
@@ -146,7 +146,7 @@ class DTCParser:
         """
         Parses the manufacturer-specific powertrain fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: manufacturer-specific powertrain fault
         """
@@ -164,7 +164,7 @@ class DTCParser:
         """
         Parses the generic chassis fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: generic chassis fault
         """
@@ -174,7 +174,7 @@ class DTCParser:
         """
         Parses the manufacturer-specific chassis fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: manufacturer-specific chassis fault
         """
@@ -190,7 +190,7 @@ class DTCParser:
         """
         Parses the generic body fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: generic body fault
         """
@@ -200,7 +200,7 @@ class DTCParser:
         """
         Parses the manufacturer-specific body fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: manufacturer-specific body fault
         """
@@ -216,7 +216,7 @@ class DTCParser:
         """
         Parses the generic network fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: generic network fault
         """
@@ -226,7 +226,7 @@ class DTCParser:
         """
         Parses the manufacturer-specific network fault.
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param code: last three chars (specific fault)
         :return: manufacturer-specific network fault
         """
@@ -242,7 +242,7 @@ class DTCParser:
         """
         Parses the specific fault description (last three chars) based on the category (first two chars).
 
-        :param prefix: first two characters (category)
+        :param prefix: first two chars (category)
         :param error_code: last three chars (specific fault)
         :return: parsed fault description
         """
