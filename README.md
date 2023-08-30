@@ -1,5 +1,8 @@
 # DTC Parser
 
+![unstable](https://img.shields.io/badge/stability-unstable-orange)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 > Parser for [diagnostic trouble codes](https://en.wikipedia.org/wiki/OBD-II_PIDs) (DTCs) used by vehicle [on-board diagnostics](https://en.wikipedia.org/wiki/On-board_diagnostics) (OBD). Resolves all digits of the code and outputs the resulting error information (e.g. vehicle part and descriptions). The parser currently supports *5090* DTCs from all categories, i.e., powertrain, body, chassis and user network, both generic and manufacturer-specific ones. If you miss DTCs, please don't hesitate to file an issue or directly add them in a PR.
 
 ## Installation
@@ -30,3 +33,7 @@ FAULT DESCRIPTION:	 intake air temperature sensor 1 circuit low
 ## Code Scheme
 
 `<VEHICLE_PART>_<CODE_TYPE>_<VEHICLE_SUBSYSTEM>_<FAULT_DESCRIPTION>`
+
+## Related Publications
+
+TBD.
