@@ -1,6 +1,6 @@
 from setuptools import find_packages, setup
 
-__version__ = '0.0.1'
+__version__ = '0.1.1'
 URL = 'https://github.com/tbohne/dtc_parser'
 
 with open('requirements.txt') as f:

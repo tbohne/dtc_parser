@@ -3,6 +3,7 @@
 # @author Tim Bohne
 
 import argparse
+from typing import Dict
 
 from dtc_parser import error_codes
 
@@ -57,7 +58,7 @@ class DTCParser:
             return "---"
 
     @staticmethod
-    def parse_vehicle_subsystem(first_char, third_char: str) -> str:
+    def parse_vehicle_subsystem(first_char: str, third_char: str) -> str:
         """
         The third char tells which vehicle subsystem has a fault (based on the category (first char)).
         This function returns the subsystems for powertrain codes.
@@ -94,7 +95,7 @@ class DTCParser:
             return "unknown_P"
 
     @staticmethod
-    def get_code_from_dict(code_dict: dict, code: str) -> str:
+    def get_code_from_dict(code_dict: Dict, code: str) -> str:
         """
         Parses the specified DTC using the specified dictionary (if supported).
 
@@ -284,7 +285,7 @@ class DTCParser:
               self.parse_fault_description(code[0] + code[1], code[2] + code[3] + code[4]).lower())
         print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 
-    def parse_code_machine_readable(self, code: str) -> dict:
+    def parse_code_machine_readable(self, code: str) -> Dict:
         """
         Parses the provided DTC and returns the results in a machine-readable format.
 
